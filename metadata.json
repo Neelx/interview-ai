@@ -1,0 +1,8 @@
+{
+  "name": "Interview AI",
+  "description": "An AI-powered interview assistant that takes a user-typed question, sends it to Gemini with a selected role context, and displays a suggested answer.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "prompt": ""
+}
