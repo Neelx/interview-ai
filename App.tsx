@@ -1,8 +1,9 @@
 
 import React, { useState, useCallback, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import ContentCard from './components/ContentCard';
-// import Controls from './components/Controls'; // Removed
+import LandingPage from './components/LandingPage';
 import useSpeechRecognition from './hooks/useSpeechRecognition';
 import { Chat } from '@google/genai'; 
 import { createNewChat, getInitialGreeting, sendMessageToChat } from './services/geminiService';
@@ -13,7 +14,8 @@ interface QAEntry {
   answer: string;
 }
 
-const App: React.FC = () => {
+// Interview component that contains the original App functionality
+const InterviewInterface: React.FC = () => {
   const [currentRole, setCurrentRole] = useState<string>("Java Developer");
   const [qaHistory, setQaHistory] = useState<QAEntry[]>([]);
   
@@ -177,6 +179,19 @@ const App: React.FC = () => {
         </main>
       </div>
     </div>
+  );
+};
+
+// Main App component with routing
+const App: React.FC = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/interview" element={<InterviewInterface />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Router>
   );
 };
 
