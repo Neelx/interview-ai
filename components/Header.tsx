@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react';
+import { SignOutButton } from '@clerk/clerk-react';
 
 interface User {
   name: string;
@@ -19,9 +19,6 @@ interface HeaderProps {
   interimTranscript: string;
   isFetchingAnswer: boolean;
   onNavigateHome?: () => void; // Function to navigate to main page
-  user?: User | null; // Current authenticated user
-  onSignIn?: () => void; // Function to handle Google sign in
-  onSignOut?: () => void; // Function to handle sign out
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -35,10 +32,7 @@ const Header: React.FC<HeaderProps> = ({
   browserSupportsSpeechRecognition,
   interimTranscript,
   isFetchingAnswer,
-  onNavigateHome,
-  user,
-  onSignIn,
-  onSignOut
+  onNavigateHome
 }) => {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showRoleDropdown, setShowRoleDropdown] = useState(false);
@@ -193,10 +187,8 @@ const Header: React.FC<HeaderProps> = ({
               </button>
             </div>
 
-            {/* Right: Authentication */}
+            {/* Right: Help Button and Sign Out */}
             <div className="flex items-center gap-3">
-              
-              {/* Help Button */}
               <button
                 className="flex items-center justify-center size-10 bg-white border border-slate-200 rounded-xl text-slate-600 hover:text-indigo-600 hover:border-indigo-200 hover:bg-indigo-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm hover:shadow-md"
                 aria-label="Help"
@@ -205,39 +197,19 @@ const Header: React.FC<HeaderProps> = ({
                   <path d="M140,180a12,12,0,1,1-12-12A12,12,0,0,1,140,180ZM128,72c-22.06,0-40,16.15-40,36v4a8,8,0,0,0,16,0v-4c0-11,10.77-20,24-20s24,9,24,20-10.77,20-24,20a8,8,0,0,0-8,8v8a8,8,0,0,0,16,0v-.72c18.24-3.35,32-17.9,32-35.28C168,88.15,150.06,72,128,72Zm104,56A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z" />
                 </svg>
               </button>
-
-              {/* Clerk Authentication - Replace the custom button */}
-              <SignedOut>
-                <SignInButton>
-                  <button
-                    className="relative size-10 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-full shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 group overflow-hidden"
-                    aria-label="Sign in"
-                  >
-                    {/* User Icon */}
-                    <div className="absolute inset-0 flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-200">
-                      <svg className="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                      </svg>
-                    </div>
-                    
-                    {/* Animated Ring */}
-                    <div className="absolute inset-0 rounded-full border-2 border-white opacity-0 group-hover:opacity-30 animate-ping"></div>
-                    
-                    {/* Hover Overlay */}
-                    <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 rounded-full transition-opacity duration-200"></div>
-                  </button>
-                </SignInButton>
-              </SignedOut>
-
-              <SignedIn>
-                <UserButton 
-                  appearance={{
-                    elements: {
-                      avatarBox: "size-10 rounded-full shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    }
-                  }}
-                />
-              </SignedIn>
+              
+              {/* Sign Out Button */}
+              <SignOutButton>
+                <button
+                  className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-xl text-slate-700 hover:text-red-600 hover:border-red-200 hover:bg-red-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 shadow-sm hover:shadow-md text-sm font-medium"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path fillRule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                    <path fillRule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                  </svg>
+                  Sign Out
+                </button>
+              </SignOutButton>
             </div>
           </div>
         </div>

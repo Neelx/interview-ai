@@ -1,12 +1,14 @@
 
 import React, { useState, useCallback, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import Header from './components/Header';
 import ContentCard from './components/ContentCard';
 import LandingPage from './components/LandingPage';
+import SystemAudioDemo from './components/SystemAudioDemo';
 import useSpeechRecognition from './hooks/useSpeechRecognition';
 import { Chat } from '@google/genai'; 
 import { createNewChat, getInitialGreeting, sendMessageToChat } from './services/geminiService';
+import { SignedIn, SignedOut, RedirectToSignIn, ClerkProvider } from '@clerk/clerk-react';
 
 interface QAEntry {
   id: string;
@@ -182,13 +184,26 @@ const InterviewInterface: React.FC = () => {
   );
 };
 
+// Protected route component
+const ProtectedRoute: React.FC<{ element: React.ReactElement }> = ({ element }) => {
+  return (
+    <>
+      <SignedIn>{element}</SignedIn>
+      <SignedOut>
+        <RedirectToSignIn />
+      </SignedOut>
+    </>
+  );
+};
+
 // Main App component with routing
 const App: React.FC = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/interview" element={<InterviewInterface />} />
+        <Route path="/interview" element={<ProtectedRoute element={<InterviewInterface />} />} />
+        <Route path="/system-audio-demo" element={<SystemAudioDemo />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>

@@ -50,7 +50,7 @@ export const getInitialGreeting = async (chat: Chat, role: string): Promise<stri
   const initialPrompt = createInitialUserPrompt(role);
   try {
     const response: GenerateContentResponse = await chat.sendMessage({ message: initialPrompt });
-    return response.text;
+    return response.text ?? '';
   } catch (error) {
     console.error("Error getting initial greeting from Gemini:", error);
     // Let App.tsx handle displaying the error message
@@ -61,7 +61,7 @@ export const getInitialGreeting = async (chat: Chat, role: string): Promise<stri
 export const sendMessageToChat = async (chat: Chat, userMessage: string): Promise<string> => {
   try {
     const response: GenerateContentResponse = await chat.sendMessage({ message: userMessage });
-    return response.text;
+    return response.text ?? '';
   } catch (error) {
     console.error("Error sending message to Gemini:", error);
     // Let App.tsx handle displaying the error message

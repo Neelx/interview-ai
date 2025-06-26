@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { SignedIn, SignedOut, useAuth } from '@clerk/clerk-react';
 
 interface QAEntry {
   id: string;
@@ -26,6 +27,7 @@ const ContentCard: React.FC<ContentCardProps> = ({
   isFetchingCurrentAnswer
 }) => {
   const scrollableContentRef = useRef<HTMLDivElement>(null);
+  const { isSignedIn } = useAuth();
 
   // Reverse the qaHistory to show latest first
   const reversedQaHistory = [...qaHistory].reverse();
