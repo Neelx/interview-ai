@@ -8,7 +8,10 @@ import SystemAudioDemo from './components/SystemAudioDemo';
 import useSpeechRecognition from './hooks/useSpeechRecognition';
 import { Chat } from '@google/genai'; 
 import { createNewChat, getInitialGreeting, sendMessageToChat } from './services/geminiService';
-import { SignedIn, SignedOut, RedirectToSignIn, ClerkProvider } from '@clerk/clerk-react';
+import { SignedIn, SignedOut, RedirectToSignIn } from './components/auth/AuthComponents';
+import { ProtectedRoute } from './components/auth/AuthRoutes';
+import SignIn from './components/auth/SignIn';
+import SignUp from './components/auth/SignUp';
 
 interface QAEntry {
   id: string;
@@ -184,17 +187,7 @@ const InterviewInterface: React.FC = () => {
   );
 };
 
-// Protected route component
-const ProtectedRoute: React.FC<{ element: React.ReactElement }> = ({ element }) => {
-  return (
-    <>
-      <SignedIn>{element}</SignedIn>
-      <SignedOut>
-        <RedirectToSignIn />
-      </SignedOut>
-    </>
-  );
-};
+// We're using the ProtectedRoute from AuthRoutes.tsx instead of this one
 
 // Main App component with routing
 const App: React.FC = () => {
@@ -204,6 +197,8 @@ const App: React.FC = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path="/interview" element={<ProtectedRoute element={<InterviewInterface />} />} />
         <Route path="/system-audio-demo" element={<SystemAudioDemo />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>

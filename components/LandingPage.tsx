@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react';
+import { SignedIn, SignedOut } from '../components/auth/AuthComponents';
+import SignInButton from '../components/auth/SignInButton';
+import UserButton from '../components/auth/UserButton';
 
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();

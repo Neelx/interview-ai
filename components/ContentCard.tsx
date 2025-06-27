@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import { SignedIn, SignedOut, useAuth } from '@clerk/clerk-react';
+import { SignedIn, SignedOut } from './auth/AuthComponents';
+import { useAuth } from '../services/authService';
 
 interface QAEntry {
   id: string;

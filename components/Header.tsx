@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SignOutButton } from '@clerk/clerk-react';
+import SignOutButton from './auth/SignOutButton';
 
 interface User {
   name: string;
